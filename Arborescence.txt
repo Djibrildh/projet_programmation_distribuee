@@ -1,0 +1,31 @@
+projet-pprog-distrib/    
+│
+├── k8s/
+│   ├── mysql-deployment.yaml
+│   ├── products-deployment.yaml
+│   ├── orders-deployment.yaml
+│   ├── frontend-deployment.yaml
+│   ├── ingress.yaml
+│   ├── rbac.yaml
+│   └── network-policies.yaml
+│
+├── service-products/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── index.js
+│   └── proto/
+│       └── product.proto 
+│
+├── service-orders/
+│   ├── Dockerfile
+│   ├── package.json
+│   ├── index.js
+│   └── proto/
+│       └── product.proto
+│
+└── service-frontend/ 
+    ├── Dockerfile
+    ├── nginx.conf
+    └── src/
+        ├── index.html
+        └── app.jsx

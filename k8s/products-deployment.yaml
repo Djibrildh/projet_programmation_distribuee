@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: products
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: products
+  template:
+    metadata:
+      labels:
+        app: products
+    spec:
+      serviceAccountName: products-sa
+      containers:
+      - name: products
+        image: djibrildh/service-products:latest
+        imagePullPolicy: Always
+        env:
+        - name: DB_HOST
+          value: mysql-service
+        - name: DB_USER
+          value: root
+        - name: DB_PASS
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: root-password
+        - name: DB_NAME
+          value: shopdb
+        ports:
+        - containerPort: 3001
+        - containerPort: 50051
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: products-service
+spec:
+  selector:
+    app: products
+  ports:
+  - name: http
+    port: 3001
+    targetPort: 3001
+  - name: grpc
+    port: 50051
+    targetPort: 50051
